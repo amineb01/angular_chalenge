@@ -1,0 +1,43 @@
+<div style="background-color:antiquewhite" class="full-width-form">
+  <form [formGroup]="loginForm" class="full-width-form" (ngSubmit)="onSubmit()">
+    <mat-spinner *ngIf='loading'></mat-spinner>
+
+    <mat-form-field [style.opacity]="loading?0.4:1" >
+
+      <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
+
+
+      <mat-error *ngIf="!loginForm.controls.email.valid && loginForm.controls.email.errors?.required  ">
+        Email is
+        <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="!loginForm.controls.email.valid && !loginForm.controls.email.errors?.required && loginForm.controls.email.errors?.email">
+        Please enter a valid email address
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field [style.opacity]="loading?0.4:1" >
+
+      <input matInput type="password" placeholder="password" formControlName="password" [errorStateMatcher]="matcher">
+
+      <mat-error *ngIf="!loginForm.controls.password.valid && loginForm.controls.password.errors?.required  ">
+        Password is
+        <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="!loginForm.controls.password.valid && !loginForm.controls.password.errors?.required && loginForm.controls.password.errors?.minlength">
+        Please enter a valid password
+      </mat-error>
+
+    </mat-form-field>
+
+
+    <div class="row justify-content-end" [style.opacity]="loading?0.4:1">
+
+      <div class=" col-8 col-md-4 ">
+        <button mat-stroked-button color="primary" type="submit">Login</button>
+        <!-- [disabled]="loginForm.invalid" -->
+      </div>
+    </div>
+  </form>
+</div>

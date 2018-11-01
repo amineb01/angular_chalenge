@@ -1,0 +1,35 @@
+:host{
+    display: block;
+    .full-width-form{
+        width: 80%;
+        margin-right: 10%;
+        margin-left: 10%;
+        padding: 20px 0px;
+        clip-path: polygon(2% 0, 98% 0, 100% 100%, 0% 100%);
+        form{
+            position: relative
+        }
+        button{
+            width: 97%;
+            margin-top: 20px
+        }
+    }
+       
+      
+    
+    mat-form-field {
+        display: block;
+        margin-right: 10%;
+        margin-left: 10%;
+        margin-bottom: 20px
+    }
+
+
+    mat-spinner{
+        position: absolute;
+        top: 36%;
+        right: 34%;
+        width: 150px!important;
+        z-index: 9999
+    }
+}

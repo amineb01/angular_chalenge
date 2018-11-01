@@ -1,0 +1,12 @@
+:host{
+    display: block;
+    table{
+        width: 100%; 
+         td:last-of-type {
+            width: 30%; 
+        } 
+    }
+    button {
+        margin: 3px 10px
+    }
+}
