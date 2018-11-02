@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { AuthentificationService } from '../shared/services/authentification.service';
 import * as crypto from "crypto-js";
+import { AccountService } from '../shared/services/account.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   requestError
 
 
-  constructor(private router: Router, private authentificationService: AuthentificationService) { }
+  constructor(private router: Router, private authentificationService: AuthentificationService,private accountService: AccountService ) { }
 
   ngOnInit() {
     this.initForm();
@@ -56,7 +57,9 @@ export class LoginComponent implements OnInit {
           this.requestError = res.data;
 
         } else {
-          this.authentificationService.setUserCredentials(JSON.stringify(res))
+          console.log("resresres",res)
+          this.accountService.saveAvatarPath(res.avatar.url.replace(/^.*[\\\/]/, ''))
+           this.authentificationService.setUserCredentials(JSON.stringify(res))
 
         }
       },
