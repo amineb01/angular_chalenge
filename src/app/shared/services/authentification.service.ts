@@ -6,7 +6,7 @@ import { Observable, Subject, throwError } from 'rxjs';
 import 'rxjs/add/operator/map';
 
 
-let url = 'http://192.168.1.18:3000/api/'
+let url = 'http://localhost:3000/api/'
 let token: string
 
 @Injectable({

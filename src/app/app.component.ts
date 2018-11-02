@@ -23,13 +23,18 @@ export class AppComponent {
   credentials = JSON.parse(localStorage.getItem('user_credentials'));
 
   demandeForm
-  constructor(public dialog: MatDialog, private router: Router, private authentificationService: AuthentificationService, private accountService: AccountService) {
+  constructor(public dialog: MatDialog, private router: Router, 
+    private authentificationService: AuthentificationService, 
+    private accountService: AccountService) {
 
 
   }
 
 
   ngOnInit() {
+    this.accountService.avatar$
+    .subscribe(res=>{this.imageTodisplay=res})
+   
     if (this.credentials)
       this.emailUser =this.credentials.email;
 
@@ -76,24 +81,20 @@ export class AppComponent {
   logout() {
     this.authentificationService.logout()
   }
+
   onFileChanged(event) {
 
     this.selectedFile = event.target.files[0]
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
-
-      const reader = new FileReader();
-      reader.onload = e => this.imageTodisplay = reader.result;
-
-      reader.readAsDataURL(file);
-      this.accountService.uploadAvatar(this.selectedFile).subscribe(res => this.saveUrlImagePath(res.data))
+      this.accountService.uploadAvatar(this.selectedFile)
+      .subscribe(res => this.saveUrlImagePath(res.data.url))
     }
 
   }
 
-  saveUrlImagePath(image) {
-
-    this.imageTodisplay = this.accountService.saveAvatarPath(image)
+  saveUrlImagePath(imagePath) {
+    this.imageTodisplay = this.accountService.saveAvatarPath(imagePath)
   }
 
   openDialog(): void {

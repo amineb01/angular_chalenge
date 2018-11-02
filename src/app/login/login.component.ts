@@ -28,11 +28,11 @@ export class LoginComponent implements OnInit {
 
   initForm() {
     this.loginForm = new FormGroup({
-      email: new FormControl('', [
+      email: new FormControl('bellarej.amie2@gmail.com', [
         Validators.required,
         Validators.email,
       ]),
-      password: new FormControl("", [
+      password: new FormControl("123456", [
         Validators.required,
         Validators.minLength(4),
       ])
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
         } else {
           console.log("resresres",res)
           if(res.avatar.url)
-          this.accountService.saveAvatarPath(res.avatar.url.replace(/^.*[\\\/]/, ''))
+          this.accountService.saveAvatarPath(res.avatar.url)
            this.authentificationService.setUserCredentials(JSON.stringify(res))
 
         }

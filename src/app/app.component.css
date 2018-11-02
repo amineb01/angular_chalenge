@@ -1,20 +1,24 @@
 
 .menuBu {
-  position: absolute;
-  right: 0;
-  top: 5%
+  position: fixed;
+  z-index: 9990;
+  background-color: #9ccb3a;
+  right: 5%;
+  top: 5%;
+
 }
+
+.profile{
+  padding: 5% 10%;
+}
+
 .photoProfile{
     position: relative;margin-bottom: 30px;
     width: 200px;
 
   }
 
-  .photoProfile:hover .uploadBu{
-
-    opacity: 1;
-  
-  }
+.photoProfile:hover .uploadBu{ opacity: 1; }
 .uploadBu{
     position: absolute;
     bottom: 0;

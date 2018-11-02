@@ -61,10 +61,13 @@ export class DemandesTableComponent implements OnInit {
     } else {
       this.demandesService.getDemandeForUser(this.pageIndex).subscribe(res => {
         this.demandesList = res
-        console.log(" this.demandesList", this.demandesList)
         this.dataSource = new MatTableDataSource(this.demandesList);
       })
 
+      this.demandesService.demandeUSer$.subscribe(res => {
+        this.demandesList = res
+        this.dataSource = new MatTableDataSource(this.demandesList);
+      })
       this.lastRowName = "Status"
     }
 
