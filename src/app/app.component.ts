@@ -17,7 +17,10 @@ export class AppComponent {
     this.authentificationService.Credentials$.subscribe(res => {
       let credential = JSON.parse(res)
 
-      if (credential) {
+      if (credential && credential.id && !credential.isAdmin ) {
+        this.router.navigate(['/user']);
+      }
+      else if (credential && credential.id && credential.isAdmin) {
         this.router.navigate(['/admin']);
       }
       else {

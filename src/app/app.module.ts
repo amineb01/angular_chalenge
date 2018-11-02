@@ -14,6 +14,9 @@ import { LoginComponent } from './login/login.component';
 import { AuthentificationService } from './shared/services/authentification.service';
 import { RouterModule, Route } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { RoutesModule } from './routes';
+import { UserInterfaceComponent } from './user-interface/user-interface.component';
+import { DemandesService } from './shared/services/demandes.service';
 
 
 @NgModule({
@@ -23,6 +26,7 @@ import { HttpModule } from '@angular/http';
     AdminInterfaceComponent,
     TablePaginationComponent,
     LoginComponent,
+    UserInterfaceComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -31,16 +35,11 @@ import { HttpModule } from '@angular/http';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(
-      [
-        { path: "", component: LoginComponent},
-        { path: "admin", component: AdminInterfaceComponent}
-      ]
-    ),
+    RoutesModule,
     HttpModule 
     
   ],
-  providers: [AuthentificationService],
+  providers: [AuthentificationService,DemandesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
