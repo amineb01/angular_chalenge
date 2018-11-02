@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>Ajouter votre demande</h1>
+  <form [formGroup]="demandeForm" class="full-width-form" (ngSubmit)="onSubmit()">
+
+    <mat-form-field [style.opacity]="loading?0.4:1">
+
+      <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
+
+
+      <mat-error *ngIf="!demandeForm.controls.email.valid && demandeForm.controls.email.errors?.required  ">
+        Email is
+        <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="!demandeForm.controls.email.valid && !demandeForm.controls.email.errors?.required && demandeForm.controls.email.errors?.email">
+        Please enter a valid email address
+      </mat-error>
+
+    </mat-form-field>
+
+    <mat-form-field >
+
+      <input matInput type="password" placeholder="password" formControlName="password" [errorStateMatcher]="matcher">
+
+      <mat-error *ngIf="!demandeForm.controls.password.valid && demandeForm.controls.password.errors?.required  ">
+        Password is
+        <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="!demandeForm.controls.password.valid && !demandeForm.controls.password.errors?.required && demandeForm.controls.password.errors?.minlength">
+        Please enter a valid password
+      </mat-error>
+
+    </mat-form-field>
+
+
+    <div class="row justify-content-end" [style.opacity]="loading?0.4:1">
+
+      <div class=" col-8 col-md-4 ">
+        <button mat-stroked-button color="primary" [disabled]="demandeForm.invalid" type="submit">Login</button>
+        <!-- [disabled]="demandeForm.invalid" -->
+      </div>
+    </div>
+  </form>

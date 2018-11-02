@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { AuthentificationService } from './shared/services/authentification.service';
+import { AccountService } from './shared/services/account.service';
+import { MatDialog } from '@angular/material';
+import { AddDemandeDialogComponent } from './dialogs/add-demande-dialog/add-demande-dialog.component';
+
 
 @Component({
   selector: 'app-root',
@@ -11,13 +15,32 @@ import { AuthentificationService } from './shared/services/authentification.serv
 export class AppComponent {
 
   title = 'chalenge';
-  constructor(private router: Router, private authentificationService: AuthentificationService) {
-    this.authentificationService.isUserLogged();
+  isAdmin = false;
+  hideProfile = false;
+  selectedFile
+  imageTodisplay;
+  emailUser
+  credentials = JSON.parse(localStorage.getItem('user_credentials'));
+
+  demandeForm
+  constructor(public dialog: MatDialog, private router: Router, private authentificationService: AuthentificationService, private accountService: AccountService) {
+
+
+  }
+
+
+  ngOnInit() {
+    if (this.credentials)
+      this.emailUser =this.credentials.email;
+
+    let imagePath = this.accountService.getAvatarPath()
+    if (imagePath)
+      this.imageTodisplay = imagePath
 
     this.authentificationService.Credentials$.subscribe(res => {
       let credential = JSON.parse(res)
+      if (credential && credential.id && !credential.isAdmin) {
 
-      if (credential && credential.id && !credential.isAdmin ) {
         this.router.navigate(['/user']);
       }
       else if (credential && credential.id && credential.isAdmin) {
@@ -28,11 +51,61 @@ export class AppComponent {
       }
     })
 
+
+    this.router.events.subscribe((event) => {
+
+      if (event instanceof NavigationEnd) {
+        if (event.url === "/admin") {
+          this.isAdmin = true;
+          this.updateProfile();
+        }
+        else if (event.url === "/user") {
+          this.isAdmin = false;
+          this.updateProfile();
+        } else {
+          this.hideProfile = true;
+        }
+      }
+    });
   }
 
-
+  updateProfile() {
+    this.emailUser = JSON.parse(localStorage.getItem('user_credentials')).email;
+    this.hideProfile = false;
+  }
   logout() {
-    //this.authentificationService.logout()
+    this.authentificationService.logout()
   }
+  onFileChanged(event) {
+
+    this.selectedFile = event.target.files[0]
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = e => this.imageTodisplay = reader.result;
+
+      reader.readAsDataURL(file);
+      this.accountService.uploadAvatar(this.selectedFile).subscribe(res => this.saveUrlImagePath(res.data))
+    }
+
+  }
+
+  saveUrlImagePath(image) {
+
+    this.imageTodisplay = this.accountService.saveAvatarPath(image)
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddDemandeDialogComponent, {
+      data: { form: this.demandeForm }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+
+    });
+  }
+
 
 }

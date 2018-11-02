@@ -14,8 +14,8 @@ import { UserInterfaceComponent } from 'src/app/user-interface/user-interface.co
 const appRoutes: Route[] = [
     { path: "", component: LoginComponent },
     { path: "admin", component: AdminInterfaceComponent, canActivate: [AuthGuard,AuthAdminGuard] },
-    { path: "user", component: UserInterfaceComponent, canActivate: [AuthGuard] }
-
+    { path: "user", component: UserInterfaceComponent, canActivate: [AuthGuard] },
+    { path: '**', component: LoginComponent },
 ];
 
 @NgModule({

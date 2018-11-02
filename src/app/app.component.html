@@ -1,16 +1,71 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div class="container-fluid">
-  <div style="text-align:center">
-    <h1>
-      Welcome to {{ title }}!
-    </h1>
-    <img width="300" alt="Angular Logo" src="./assets/logo.png">
+  <div class="row">
+    <div class="col-9 order-md-2 col-md-4">
+      <div style="text-align:center">
+        <div style="position:relative">
+          <h1>
+            Welcome to {{ title }}!
+          </h1>
+
+        </div>
+
+        <img width="300" alt="Angular Logo" src="./assets/logo.png">
+      </div>
+
+    </div>
+
+    <div class="col-2 order-md-3 col-md-4" style="position:relative">
+      <button mat-icon-button [matMenuTriggerFor]="menu" class="menuBu">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <mat-menu #menu="matMenu">
+        <button (click)="logout()" mat-menu-item>
+          <mat-icon>call_missed_outgoing</mat-icon>
+          <span>Logout</span>
+        </button>
+        <button mat-menu-item *ngIf="isAdmin">
+          <mat-icon>group_add</mat-icon>
+          <span>Ajouter un nouvel utilisateur </span>
+        </button>
+        <button  (click)="openDialog()" mat-menu-item *ngIf="!isAdmin">
+          <mat-icon>add</mat-icon>
+          <span>Ajouter une nouvelle demande </span>
+        </button>
+      </mat-menu>
+
+
+    </div>
+
+
+    <div class="col-6  order-md-1 col-md-4">
+      <div class="profile" *ngIf='!hideProfile'>
+        <div class="photoProfile" [style.opacity]=" showloading?0.4:1">
+          <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+          <img src="{{imageTodisplay ?imageTodisplay  : 'http://placehold.it/300/300'}}" style="width: 200px;height: 200px;">
+          <button type="button" class="uploadBu" (click)="fileInput.click()">Upload</button>
+
+        </div>
+        <div class="text-left">
+          <p class="font-weight-bold">Email: {{emailUser}} </p>
+        </div>
+
+
+      </div>
+    </div>
+
+
+
   </div>
-</div>
-<div class="container" >
 
-<!--<app-admin-interface></app-admin-interface>-->
-<router-outlet></router-outlet>
+
+
 
 </div>
+<div class="container">
 
+  <!--<app-admin-interface></app-admin-interface>-->
+  <router-outlet></router-outlet>
+
+</div>

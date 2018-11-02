@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { DemandesTableComponent } from './demandes-table/demandes-table.component';
 import { MaterialModule } from './material';
 import { AdminInterfaceComponent } from './admin-interface/admin-interface.component';
@@ -17,7 +17,8 @@ import { HttpModule } from '@angular/http';
 import { RoutesModule } from './routes';
 import { UserInterfaceComponent } from './user-interface/user-interface.component';
 import { DemandesService } from './shared/services/demandes.service';
-
+import { AccountService } from './shared/services/account.service';
+import { AddDemandeDialogComponent } from './dialogs/add-demande-dialog/add-demande-dialog.component'
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { DemandesService } from './shared/services/demandes.service';
     TablePaginationComponent,
     LoginComponent,
     UserInterfaceComponent,
+    AddDemandeDialogComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -36,10 +38,14 @@ import { DemandesService } from './shared/services/demandes.service';
     HttpClientModule,
     ReactiveFormsModule,
     RoutesModule,
-    HttpModule 
-    
+    HttpModule
+
   ],
-  providers: [AuthentificationService,DemandesService],
+  entryComponents: [
+    AddDemandeDialogComponent
+  ],
+
+  providers: [AuthentificationService, DemandesService, AccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

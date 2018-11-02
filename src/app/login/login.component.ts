@@ -22,9 +22,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
+    this.authentificationService.isUserLogged()
   }
-
-
 
   initForm() {
     this.loginForm = new FormGroup({
@@ -51,6 +50,7 @@ export class LoginComponent implements OnInit {
       res => {
         this.loading = false;
         //   this.open.emit(false);
+
         console.log("result", res)
         if (res.status === "fail") {
           this.requestError = res.data;

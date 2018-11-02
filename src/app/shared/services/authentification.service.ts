@@ -67,4 +67,9 @@ export class AuthentificationService {
       return localStorage.getItem('token') !== null;
     }
   */
+  logout() {
+    localStorage.clear();
+
+    this.tokenSubject.next(null);
+  }
 }

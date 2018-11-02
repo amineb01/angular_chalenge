@@ -1,0 +1,29 @@
+
+.menuBu {
+  position: absolute;
+  right: 0;
+  top: 5%
+}
+.photoProfile{
+    position: relative;margin-bottom: 30px;
+    width: 200px;
+
+  }
+
+  .photoProfile:hover .uploadBu{
+
+    opacity: 1;
+  
+  }
+.uploadBu{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 200px;
+    padding: 10px 0px;
+    background-color: transparent;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: all 300ms;
+    color: aliceblue
+  }
