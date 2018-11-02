@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
 
         } else {
           console.log("resresres",res)
+          if(res.avatar.url)
           this.accountService.saveAvatarPath(res.avatar.url.replace(/^.*[\\\/]/, ''))
            this.authentificationService.setUserCredentials(JSON.stringify(res))
 

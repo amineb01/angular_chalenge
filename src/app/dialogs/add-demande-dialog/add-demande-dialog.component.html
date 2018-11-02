@@ -1,41 +1,67 @@
 <h1 mat-dialog-title>Ajouter votre demande</h1>
-  <form [formGroup]="demandeForm" class="full-width-form" (ngSubmit)="onSubmit()">
+<form [formGroup]="demandeForm" class="full-width-form" (ngSubmit)="onSubmit()">
 
-    <mat-form-field [style.opacity]="loading?0.4:1">
+  <mat-form-field [style.opacity]="loading?0.4:1">
 
-      <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
+    <input disabled  matInput autocomplete="off" [matDatepicker]="picker" formControlName="dated" [errorStateMatcher]="matcher" placeholder="Date de début">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker disabled="false"></mat-datepicker>
 
+    <mat-error *ngIf="!demandeForm.controls.dated.valid && demandeForm.controls.dated.errors?.required  ">
+      Date de début is
+      <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="!demandeForm.controls.dated.valid && !demandeForm.controls.dated.errors?.required && demandeForm.controls.dated.errors?.dated">
+      Please enter a valid date de début
+    </mat-error>
 
-      <mat-error *ngIf="!demandeForm.controls.email.valid && demandeForm.controls.email.errors?.required  ">
-        Email is
-        <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="!demandeForm.controls.email.valid && !demandeForm.controls.email.errors?.required && demandeForm.controls.email.errors?.email">
-        Please enter a valid email address
-      </mat-error>
-
-    </mat-form-field>
-
-    <mat-form-field >
-
-      <input matInput type="password" placeholder="password" formControlName="password" [errorStateMatcher]="matcher">
-
-      <mat-error *ngIf="!demandeForm.controls.password.valid && demandeForm.controls.password.errors?.required  ">
-        Password is
-        <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="!demandeForm.controls.password.valid && !demandeForm.controls.password.errors?.required && demandeForm.controls.password.errors?.minlength">
-        Please enter a valid password
-      </mat-error>
-
-    </mat-form-field>
+  </mat-form-field>
 
 
-    <div class="row justify-content-end" [style.opacity]="loading?0.4:1">
 
-      <div class=" col-8 col-md-4 ">
-        <button mat-stroked-button color="primary" [disabled]="demandeForm.invalid" type="submit">Login</button>
-        <!-- [disabled]="demandeForm.invalid" -->
-      </div>
+
+  <mat-form-field [style.opacity]="loading?0.4:1">
+
+    
+    <input  autocomplete="off" matInput [matDatepicker]="picker2" placeholder="Date de fin" formControlName="datef" [errorStateMatcher]="matcher" disabled>
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2 disabled="false" ></mat-datepicker>
+
+    <mat-error *ngIf="!demandeForm.controls.datef.valid && demandeForm.controls.datef.errors?.required  ">
+      Date de fin is
+      <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="!demandeForm.controls.datef.valid && !demandeForm.controls.datef.errors?.required && demandeForm.controls.datef.errors?.datef">
+      Please enter a valid date fin
+    </mat-error>
+
+  </mat-form-field>
+
+
+
+  <mat-form-field>
+
+
+
+
+    <input autocomplete="off"  matInput type="text" placeholder="raison de demande de congé " formControlName="raison" [errorStateMatcher]="matcher" disabled>
+
+    <mat-error *ngIf="!demandeForm.controls.raison.valid && demandeForm.controls.raison.errors?.required  ">
+      raison is
+      <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="!demandeForm.controls.raison.valid && !demandeForm.controls.raison.errors?.required && demandeForm.controls.raison.errors?.minlength">
+      Please enter a valid raison
+    </mat-error>
+
+  </mat-form-field>
+
+
+  <div class="row justify-content-end" [style.opacity]="loading?0.4:1">
+
+    <div class=" col-8 col-md-4 ">
+      <button mat-stroked-button color="primary" [disabled]="demandeForm.invalid" type="submit">Login</button>
+      <!-- [disabled]="demandeForm.invalid" -->
     </div>
-  </form>
+  </div>
+</form>

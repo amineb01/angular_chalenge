@@ -85,7 +85,7 @@ export class DemandesService {
     headers.append('X-User-Email', this.getCredentials().email);
     headers.append('X-User-Token', this.getCredentials().authentication_token);
 
-    return this.http.put(url  + id, body, { headers: headers })
+    return this.http.put(url + id, body, { headers: headers })
       .map((response: Response) => {
 
         return response.json().data
@@ -94,5 +94,24 @@ export class DemandesService {
       )
       .catch((error: Response) => { console.log(error); return Observable.throw(error.json()) });
   }
+
+
+  createDemande(_dated, _datef, _raison) {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const body = JSON.stringify({ dated: _dated, datef: _datef, raison: _raison });
+
+    headers.append('X-User-Email', this.getCredentials().email);
+    headers.append('X-User-Token', this.getCredentials().authentication_token);
+
+    return this.http.post(url, body, { headers: headers })
+      .map((response: Response) => {
+        console.log("createDemande", response.json())
+        return response.json().data
+      }
+
+      )
+      .catch((error: Response) => { console.log(error); return Observable.throw(error.json()) });
+  }
+
 }
 
