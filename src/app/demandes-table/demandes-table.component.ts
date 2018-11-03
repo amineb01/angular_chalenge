@@ -43,9 +43,11 @@ export class DemandesTableComponent implements OnInit {
     if (this.type === "valider") {
       this.lastRowName = "Action";
       this.demandesService.getvalidDemandeForAdmin(this.pageIndex).subscribe(res => {
-        this.demandesList = res
-        this.dataSource = new MatTableDataSource(this.demandesList);
+        this.updateDataSource(res);
 
+      })
+      this.demandesService.validDemande$.subscribe(res => {
+        this.updateDataSource(res);
       })
 
     }
@@ -53,25 +55,30 @@ export class DemandesTableComponent implements OnInit {
     else if (this.type === "encours") {
       this.lastRowName = "Status"
       this.demandesService.getinprocessDemandeForAdmin(this.pageIndex).subscribe(res => {
-        this.demandesList = res
-        this.dataSource = new MatTableDataSource(this.demandesList);
+        this.updateDataSource(res);
 
+      })
+      this.demandesService.inprocessDemande$.subscribe(res => {
+        this.updateDataSource(res);
       })
 
     } else {
       this.demandesService.getDemandeForUser(this.pageIndex).subscribe(res => {
-        this.demandesList = res
-        this.dataSource = new MatTableDataSource(this.demandesList);
+        this.updateDataSource(res);
       })
 
       this.demandesService.demandeUSer$.subscribe(res => {
-        this.demandesList = res
-        this.dataSource = new MatTableDataSource(this.demandesList);
+        this.updateDataSource(res);
       })
       this.lastRowName = "Status"
     }
 
 
+  }
+
+  updateDataSource(res){
+    this.demandesList = res
+    this.dataSource = new MatTableDataSource(this.demandesList);
   }
   ChangePageIndex(_pageIndex) {
     this.pageIndex = _pageIndex
@@ -81,24 +88,24 @@ export class DemandesTableComponent implements OnInit {
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
   valider(element) {
-    this.demandesService.setDemandeResponse(element.id, true).subscribe(res => {
-      let index = this.demandesList.findIndex(demande => demande.id === res.id);
-      this.demandesList.splice(index, 1);
-      console.log("element valider", element)
-      console.log("index", index)
-    } )
+    this.updateDemande(true,element)
+
   }
   rejecter(element) {
-    this.demandesService.setDemandeResponse(element.id, false).subscribe(res => {
-      let index = this.demandesList.findIndex(demande => demande.id === element.id);
-      this.demandesList.splice(index, 1);
-      console.log("element valider", element)
-      console.log("index", index)
-    } )
-
+    
+    this.updateDemande(false,element)
   }
 
+  updateDemande(status,element){
+    this.demandesService.setDemandeResponse(element.id, status).subscribe(res => {
+      let index = this.demandesList.findIndex(demande => demande.id === element.id);
+      this.demandesList.splice(index, 1);
+      this.demandesService.addTovalidDemandeForAdmin(element)
+      this.demandesService.inprocessDemandeSubject.next(this.demandesList)
+    } )
+  }
 
 
 }

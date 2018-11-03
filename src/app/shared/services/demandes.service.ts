@@ -71,7 +71,10 @@ export class DemandesService {
       )
       .catch((error: Response) => { console.log(error); return Observable.throw(error.json()) });
   }
-
+  addTovalidDemandeForAdmin(newDemande) {
+    this.validDemande.push(newDemande)
+    this.validDemandeSubject.next(this.validDemande)
+  }
 
   getDemandeForUser(page) {
     this.demandeUSer = [];
@@ -90,7 +93,7 @@ export class DemandesService {
       )
       .catch((error: Response) => { console.log(error); return Observable.throw(error.json()) });
   }
-  
+
   addTodemandeUser(newDemande) {
     this.demandeUSer.push(newDemande)
     this.demandeUSerSubject.next(this.demandeUSer)
