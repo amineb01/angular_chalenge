@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { MatSort, MatTableDataSource } from '@angular/material';
 import { Subscription } from 'rxjs/internal/Subscription';
 import { DemandesService } from '../shared/services/demandes.service';
+import { MatDialog } from '@angular/material';
+import { DemandeDetailsComponent } from './../dialogs/demande-details/demande-details.component';
 
 export interface PeriodicElement {
   date_debut: string;
@@ -28,7 +30,7 @@ export class DemandesTableComponent implements OnInit {
   lastRowName
   $subs: Subscription
 
-  constructor(private demandesService: DemandesService) { }
+  constructor(public dialog: MatDialog,private demandesService: DemandesService) { }
 
   ngOnInit() {
 
@@ -84,7 +86,6 @@ export class DemandesTableComponent implements OnInit {
   }
   ChangePageIndex(_pageIndex) {
     this.pageIndex = _pageIndex
-    console.log("displayfromdemandes", this.pageIndex)
     this.getDemandes();
   }
   applyFilter(filterValue: string) {
@@ -109,5 +110,11 @@ export class DemandesTableComponent implements OnInit {
     })
   }
 
+  openDialogForShowingDetails(element): void {
+    const dialogRef = this.dialog.open(DemandeDetailsComponent, {
+      data: element
+    });
 
+    
+  }
 }

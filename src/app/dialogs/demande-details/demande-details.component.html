@@ -1,0 +1,26 @@
+<mat-list>
+  <mat-list-item> Employé: {{demande.username}} </mat-list-item>
+  <mat-list-item> Date de début: {{demande.date_debut}} </mat-list-item>
+  <mat-list-item> Date fin: {{demande.date_fin}} </mat-list-item>
+  <mat-list-item style="margin-bottom: 10px"> Motif: {{demande.raison}} </mat-list-item>
+  <mat-list-item *ngIf='demande.status==null;else no_null'>
+
+
+    <div class="alert alert-warning " role="alert">
+      Etat: demande en cours
+    </div>
+
+  </mat-list-item>
+  <ng-template #no_null>
+    <mat-list-item>
+      <div *ngIf='demande.status==false' class="alert alert-danger " role="alert">
+        Etat : demande rejecté
+      </div>
+      <div *ngIf='demande.status==true' class="alert alert-success " role="alert">
+        Etat : demande accepté
+      </div>
+    </mat-list-item>
+
+
+  </ng-template>
+</mat-list>

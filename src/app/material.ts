@@ -9,7 +9,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
- 
+import {MatListModule} from '@angular/material/list';
+
 import  {MatDatepickerModule,MatNativeDateModule} from '@angular/material'
 
 
@@ -26,7 +27,8 @@ import  {MatDatepickerModule,MatNativeDateModule} from '@angular/material'
     MatIconModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatListModule
   ],
   exports: [
     MatSortModule,
@@ -40,7 +42,8 @@ import  {MatDatepickerModule,MatNativeDateModule} from '@angular/material'
     MatIconModule,
     MatDialogModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatListModule
   ],
 })
 export class MaterialModule { }

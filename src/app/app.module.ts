@@ -19,7 +19,8 @@ import { UserInterfaceComponent } from './user-interface/user-interface.componen
 import { DemandesService } from './shared/services/demandes.service';
 import { AccountService } from './shared/services/account.service';
 import { AddDemandeDialogComponent } from './dialogs/add-demande-dialog/add-demande-dialog.component';
-import { AddUserComponent } from './dialogs/add-user/add-user.component'
+import { AddUserComponent } from './dialogs/add-user/add-user.component';
+import { DemandeDetailsComponent } from './dialogs/demande-details/demande-details.component'
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AddUserComponent } from './dialogs/add-user/add-user.component'
     UserInterfaceComponent,
     AddDemandeDialogComponent,
     AddUserComponent,
+    DemandeDetailsComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -45,10 +47,11 @@ import { AddUserComponent } from './dialogs/add-user/add-user.component'
   ],
   entryComponents: [
     AddDemandeDialogComponent,
-    AddUserComponent
+    AddUserComponent,
+    DemandeDetailsComponent
   ],
 
-  providers: [AuthentificationService, DemandesService, AccountService],
+  providers: [AuthentificationService, DemandesService, AccountService,DemandeDetailsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
