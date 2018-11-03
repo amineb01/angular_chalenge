@@ -18,7 +18,8 @@ import { RoutesModule } from './routes';
 import { UserInterfaceComponent } from './user-interface/user-interface.component';
 import { DemandesService } from './shared/services/demandes.service';
 import { AccountService } from './shared/services/account.service';
-import { AddDemandeDialogComponent } from './dialogs/add-demande-dialog/add-demande-dialog.component'
+import { AddDemandeDialogComponent } from './dialogs/add-demande-dialog/add-demande-dialog.component';
+import { AddUserComponent } from './dialogs/add-user/add-user.component'
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { AddDemandeDialogComponent } from './dialogs/add-demande-dialog/add-dema
     LoginComponent,
     UserInterfaceComponent,
     AddDemandeDialogComponent,
+    AddUserComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -42,7 +44,8 @@ import { AddDemandeDialogComponent } from './dialogs/add-demande-dialog/add-dema
 
   ],
   entryComponents: [
-    AddDemandeDialogComponent
+    AddDemandeDialogComponent,
+    AddUserComponent
   ],
 
   providers: [AuthentificationService, DemandesService, AccountService],

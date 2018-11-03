@@ -46,6 +46,24 @@ export class AccountService {
   getAvatarPath() {
     return localStorage.getItem('avatar');
   }
+  //normalement on doit activer cette peration que pour un administrateur mais pour des raisons de test on va proceder comme suit
+  createAcccount(user) {
+    const headers = new Headers({ 'Content-Type': 'application/json' });
+    const body = JSON.stringify(user);
+
+    //headers.append('X-User-Email', this.getCredentials().email); 
+    //headers.append('X-User-Token', this.getCredentials().authentication_token);
+
+    return this.http.post(url+"sign_up", body, { headers: headers })
+      .map((response: Response) => {
+        console.log("createDemande", response.json())
+        return response.json().data
+      }
+
+      )
+      .catch((error: Response) => { console.log(error); return Observable.throw(error.json()) });
+  }
+
 
 
 }

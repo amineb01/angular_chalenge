@@ -1,0 +1,74 @@
+<h1 mat-dialog-title>créer un compte Utilisateur</h1>
+<form [formGroup]="registerForm" class="full-width-form" (ngSubmit)="onSubmit()">
+
+  <mat-form-field>
+
+    <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="!registerForm.controls.email.valid && registerForm.controls.email.errors?.required  ">
+      Email is
+      <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="!registerForm.controls.email.valid && !registerForm.controls.email.errors?.required && registerForm.controls.email.errors?.email">
+      Please enter a valid email address
+    </mat-error>
+
+  </mat-form-field>
+
+  <mat-form-field>
+
+
+    <input autocomplete="off" matInput type="text" placeholder="Username" formControlName="username" [errorStateMatcher]="matcher"
+      disabled>
+
+    <mat-error *ngIf="!registerForm.controls.username.valid && registerForm.controls.username.errors?.required  ">
+      username is
+      <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="!registerForm.controls.username.valid && !registerForm.controls.username.errors?.required && registerForm.controls.username.errors?.minlength">
+      Please enter a valid username
+    </mat-error>
+
+  </mat-form-field>
+
+  <mat-form-field>
+
+    <input matInput type="password" placeholder="password" formControlName="password" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="!registerForm.controls.password.valid && registerForm.controls.password.errors?.required  ">
+      Password is
+      <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="!registerForm.controls.password.valid && !registerForm.controls.password.errors?.required && registerForm.controls.password.errors?.minlength">
+      Please enter a valid password
+    </mat-error>
+
+  </mat-form-field>
+
+
+
+
+  <mat-form-field>
+
+    <input matInput type="password" placeholder="password confirmation" formControlName="password_confirmation" [errorStateMatcher]="matcher">
+    <mat-error *ngIf="!registerForm.controls.password_confirmation.valid && registerForm.controls.password_confirmation.errors?.required  ">
+      Password is
+      <strong>required</strong>
+    </mat-error>
+    <mat-error *ngIf="!registerForm.controls.password_confirmation.valid && !registerForm.controls.password_confirmation.errors?.required && registerForm.controls.password.errors?.minlength">
+      Please enter a valid password
+    </mat-error>
+
+  </mat-form-field>
+
+  <p class="passNotmatch" *ngIf="registerForm.controls.password.valid && registerForm.controls.password_confirmation.valid && registerForm.controls.password.value !== registerForm.controls.password_confirmation.value">
+    * Les mots de passe ne correspondent pas !</p>
+
+
+
+  <div class="row justify-content-end" [style.opacity]="loading?0.4:1">
+
+    <div class=" col-8 col-md-4 ">
+      <button mat-stroked-button color="primary" [disabled]="registerForm.invalid" type="submit">créer</button>
+      <!-- [disabled]="registerForm.invalid" -->
+    </div>
+  </div>
+</form>

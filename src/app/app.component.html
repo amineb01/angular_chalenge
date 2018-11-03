@@ -18,11 +18,11 @@
           <mat-icon>call_missed_outgoing</mat-icon>
           <span>Logout</span>
         </button>
-        <button mat-menu-item *ngIf="isAdmin">
+        <button (click)="openDialogForAddingUser()"  mat-menu-item *ngIf="isAdmin">
           <mat-icon>group_add</mat-icon>
           <span>Ajouter un nouvel utilisateur </span>
         </button>
-        <button  (click)="openDialog()" mat-menu-item *ngIf="!isAdmin">
+        <button  (click)="openDialogForAddingDemande()" mat-menu-item *ngIf="!isAdmin">
           <mat-icon>add</mat-icon>
           <span>Ajouter une nouvelle demande </span>
         </button>

@@ -19,7 +19,7 @@ export interface PeriodicElement {
 })
 export class DemandesTableComponent implements OnInit {
   demandesList = []
-  displayedColumns: string[] = ['id', 'date_debut', 'date_fin', 'actions'];
+  displayedColumns: string[] = ['id', 'username','date_debut', 'date_fin', 'actions'];
   @Input() type;
 
   dataSource = new MatTableDataSource(this.demandesList);
@@ -40,43 +40,45 @@ export class DemandesTableComponent implements OnInit {
 
 
   getDemandes() {
-    if (this.type === "valider") {
+    if (this.type === "valider")
       this.lastRowName = "Action";
-      this.demandesService.getvalidDemandeForAdmin(this.pageIndex).subscribe(res => {
-        this.updateDataSource(res);
+    else 
+      this.lastRowName = "Status"
 
-      })
-      this.demandesService.validDemande$.subscribe(res => {
-        this.updateDataSource(res);
-      })
+    if (this.type === "valider") {
+
+        this.demandesService.getvalidDemandeForAdmin(this.pageIndex).subscribe(res => {
+          this.updateDataSource(res);
+        })
+        this.demandesService.validDemande$.subscribe(res => {
+          this.updateDataSource(res);
+        })
 
     }
 
     else if (this.type === "encours") {
-      this.lastRowName = "Status"
-      this.demandesService.getinprocessDemandeForAdmin(this.pageIndex).subscribe(res => {
-        this.updateDataSource(res);
+        this.demandesService.getinprocessDemandeForAdmin(this.pageIndex).subscribe(res => {
+          this.updateDataSource(res);
 
-      })
-      this.demandesService.inprocessDemande$.subscribe(res => {
-        this.updateDataSource(res);
-      })
+        })
+        this.demandesService.inprocessDemande$.subscribe(res => {
+          this.updateDataSource(res);
+        })
 
     } else {
-      this.demandesService.getDemandeForUser(this.pageIndex).subscribe(res => {
-        this.updateDataSource(res);
-      })
+        this.demandesService.getDemandeForUser(this.pageIndex).subscribe(res => {
+          this.updateDataSource(res);
+        })
 
-      this.demandesService.demandeUSer$.subscribe(res => {
-        this.updateDataSource(res);
-      })
-      this.lastRowName = "Status"
+        this.demandesService.demandeUSer$.subscribe(res => {
+          this.updateDataSource(res);
+        })
     }
 
 
   }
 
-  updateDataSource(res){
+  updateDataSource(res) {
     this.demandesList = res
     this.dataSource = new MatTableDataSource(this.demandesList);
   }
@@ -90,21 +92,21 @@ export class DemandesTableComponent implements OnInit {
   }
 
   valider(element) {
-    this.updateDemande(true,element)
+    this.updateDemande(true, element)
 
   }
   rejecter(element) {
-    
-    this.updateDemande(false,element)
+
+    this.updateDemande(false, element)
   }
 
-  updateDemande(status,element){
+  updateDemande(status, element) {
     this.demandesService.setDemandeResponse(element.id, status).subscribe(res => {
       let index = this.demandesList.findIndex(demande => demande.id === element.id);
       this.demandesList.splice(index, 1);
       this.demandesService.addTovalidDemandeForAdmin(element)
       this.demandesService.inprocessDemandeSubject.next(this.demandesList)
-    } )
+    })
   }
 
 

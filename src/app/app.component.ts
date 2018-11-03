@@ -5,6 +5,7 @@ import { AuthentificationService } from './shared/services/authentification.serv
 import { AccountService } from './shared/services/account.service';
 import { MatDialog } from '@angular/material';
 import { AddDemandeDialogComponent } from './dialogs/add-demande-dialog/add-demande-dialog.component';
+import { AddUserComponent } from './dialogs/add-user/add-user.component';
 
 
 @Component({
@@ -22,7 +23,6 @@ export class AppComponent {
   emailUser
   credentials = JSON.parse(localStorage.getItem('user_credentials'));
 
-  demandeForm
   constructor(public dialog: MatDialog, private router: Router, 
     private authentificationService: AuthentificationService, 
     private accountService: AccountService) {
@@ -97,9 +97,19 @@ export class AppComponent {
     this.imageTodisplay = this.accountService.saveAvatarPath(imagePath)
   }
 
-  openDialog(): void {
+  openDialogForAddingDemande(): void {
     const dialogRef = this.dialog.open(AddDemandeDialogComponent, {
-      data: { form: this.demandeForm }
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+
+    });
+  }
+  openDialogForAddingUser(): void {
+    const dialogRef = this.dialog.open(AddUserComponent, {
+
     });
 
     dialogRef.afterClosed().subscribe(result => {
